@@ -64,3 +64,5 @@ group :development do
   # gem "spring"
 end
 
+# Rubocop linters
+gem 'rubocop', '>= 1.0', '< 2.0'
