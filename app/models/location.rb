@@ -1,4 +1,6 @@
 class Location < ApplicationRecord
-  has_many :jobs
   has_many :companies
+  has_many :jobs
+
+  validates :name, presence: true, uniqueness: true
 end

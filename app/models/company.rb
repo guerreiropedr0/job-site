@@ -1,4 +1,7 @@
 class Company < ApplicationRecord
-  has_many :jobs
   belongs_to :location
+  has_many :jobs
+
+  validates :description, presence: true
+  validates :name, presence: true, uniqueness: true
 end
