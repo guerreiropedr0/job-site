@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_13_220918) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_13_225543) do
+  create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "companies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.bigint "location_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_companies_on_location_id"
+  end
+
   create_table "jobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "position", null: false
     t.string "description", null: false
@@ -19,8 +34,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_220918) do
     t.datetime "updated_at", null: false
     t.bigint "location_id", null: false
     t.bigint "type_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "level_id", null: false
+    t.bigint "company_id", null: false
+    t.index ["category_id"], name: "index_jobs_on_category_id"
+    t.index ["company_id"], name: "index_jobs_on_company_id"
+    t.index ["level_id"], name: "index_jobs_on_level_id"
     t.index ["location_id"], name: "index_jobs_on_location_id"
     t.index ["type_id"], name: "index_jobs_on_type_id"
+  end
+
+  create_table "levels", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "locations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -35,6 +62,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_220918) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "companies", "locations"
+  add_foreign_key "jobs", "categories"
+  add_foreign_key "jobs", "companies"
+  add_foreign_key "jobs", "levels"
   add_foreign_key "jobs", "locations"
   add_foreign_key "jobs", "types"
 end
