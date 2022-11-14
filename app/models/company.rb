@@ -3,5 +3,5 @@ class Company < ApplicationRecord
   has_many :jobs
 
   validates :description, presence: true
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 end

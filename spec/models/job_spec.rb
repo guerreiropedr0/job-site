@@ -8,4 +8,10 @@ RSpec.describe Job, type: :model do
     it { should belong_to(:location) }
     it { should belong_to(:type) }
   end
+
+  describe 'validations' do
+    it { should validate_presence_of(:description) }
+    it { should validate_presence_of(:position) }
+    it { should validate_numericality_of(:salary) }
+  end
 end
